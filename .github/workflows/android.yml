@@ -12,8 +12,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: set up JDK 11
+    - name: Checkout JetBrains Setup
+      uses: actions/checkout@v4
+      with:
+          repository: jansorg/github-actions-jbr-setup
+          path: .github/shared_actions/jbr
+
+    - name: Install JetBrains Runtime
       uses: ./.github/shared_actions/jbr/setup_jbr21
 
 
