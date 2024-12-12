@@ -32,9 +32,9 @@ import info.martinmarinov.drivers.usb.DvbUsbDevice;
 import static info.martinmarinov.drivers.tools.SetUtils.setOf;
 import static info.martinmarinov.drivers.usb.cxusb.MygicaT230.MYGICA_T230;
 import static info.martinmarinov.drivers.usb.cxusb.MygicaT230C.MYGICA_T230C;
-
+import static info.martinmarinov.drivers.usb.cxusb.EyeTVStick.EyeTVStick;
 public class CxUsbDvbDeviceCreator implements DvbUsbDevice.Creator {
-    private final static Set<DeviceFilter> CXUSB_DEVICES = setOf(MYGICA_T230, MYGICA_T230C);
+    private final static Set<DeviceFilter> CXUSB_DEVICES = setOf(MYGICA_T230, MYGICA_T230C,EyeTVStick);
 
     @Override
     public Set<DeviceFilter> getSupportedDevices() {
@@ -48,9 +48,15 @@ public class CxUsbDvbDeviceCreator implements DvbUsbDevice.Creator {
             return new MygicaT230C(usbDevice, context);
 
         } else {
+            if (MYGICA_T230.matches(usbDevice))
+            {
 
-            return new MygicaT230(usbDevice, context);
-
+                return new MygicaT230(usbDevice, context);
+            }
+            else
+            {
+                return new EyeTVStick(usbDevice, context);
+            }
         }
     }
 }
